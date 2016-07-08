@@ -1,36 +1,48 @@
 ﻿using MessageSerializer;
+using MessageSerializer.Format.Strategy.Deserializer;
 using MessageSerializer.Format.Strategy.Serializer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Text;
 
 namespace MessageSerializerTest.Format.Strategy.Serializer
 {
     [TestClass]
     public class JSON_Test
     {
-        private MyMessage _myMessage;
-        private byte[] _buffer;
-        private ISerializerStrategy _strategy;
+        private MyMessage actualObject, testObject;
+        private string _myMessageAsString;
+        private byte[] actualBytes, testBytes;
+        private ISerializerStrategy _serializerStrategy;
+        private IDeserializerStrategy<MyMessage> _deserializerStrategy;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _myMessage = new MyMessage() { message = "hello" };
-            _strategy = new JSON();
+            _serializerStrategy = new JSON();
+            _deserializerStrategy = new JSON<MyMessage>();
+
+            actualObject = new MyMessage() { message = "hello" };
+            _myMessageAsString = "{\"message\":\"hello\"}";
+
+            actualBytes = Encoding.Default.GetBytes(_myMessageAsString); ;
         }
 
         [TestMethod]
-        public void Serialize_object()
+        public void JSON_Serialize_object_to_byte_array()
         {
-            _buffer = _strategy.Serialize(_myMessage);
-            //MyMessage test = _strategy.Deserialize(_buffer);
-            //Assert.AreEqual(test, _myMessage);
+            testBytes = _serializerStrategy.Serialize(actualObject);
+            Assert.AreEqual(Convert.ToBase64String(actualBytes),
+                            Convert.ToBase64String(testBytes));
         }
+
+        [TestMethod]
+        public void JSON_deserialize_byte_array_to_object()
+        {
+            testObject = _deserializerStrategy.Deserialize(actualBytes);
+            Assert.AreEqual(testObject.message,actualObject.message);
+        }
+
     }
 
-    [Serializable]
-    public class MyMessage
-    {
-        public string message { get; set; }
-    }
 }
