@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MessageSerializerTest.Format.Strategy
 {
     [TestClass]
-    public class StrategySelector_Test
+    public class SerializeStrategySelector_Test
     {
         [TestMethod]
         public void StrategySelector_instantiates_binary_message_serializer()

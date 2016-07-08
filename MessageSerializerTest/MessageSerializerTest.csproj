@@ -54,7 +54,8 @@
   <ItemGroup>
     <Compile Include="Format\FormatConversion_Test.cs" />
     <Compile Include="Format\Strategy\Serializer\JSON_Test.cs" />
-    <Compile Include="Format\Strategy\StrategySelector_Test.cs" />
+    <Compile Include="Format\Strategy\DeserializeStrategySelector_Test.cs" />
+    <Compile Include="Format\Strategy\SerializeStrategySelector_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

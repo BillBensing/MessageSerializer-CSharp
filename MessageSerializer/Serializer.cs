@@ -47,8 +47,8 @@ namespace MessageSerializer
         private byte[] SerializeObject(object message, MessageType messageType)
         {
             ValidateMessageIsNotNull();
-            ISerializerStrategy serializer = _strategySelector.UseStrategy(messageType);
-            this._serializedMessage = serializer.Serialize(message);
+            ISerializerStrategy strategy = _strategySelector.UseStrategy(messageType);
+            this._serializedMessage = strategy.Serialize(message);
             return this._serializedMessage;
         }
 

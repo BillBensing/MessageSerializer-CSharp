@@ -1,5 +1,6 @@
 ﻿using MessageSerializer.Format;
 using MessageSerializer.Format.Strategy;
+using MessageSerializer.Format.Strategy.Deserializer;
 
 namespace MessageSerializer
 {
@@ -8,7 +9,7 @@ namespace MessageSerializer
         private byte[] _buffer;
         private MessageType _messageType;
         private T _deserializedMessage;
-        private ISerializeStrategySelector _strategySelector;
+        private IDeserializeStrategySelector<T> _strategySelector;
 
         public byte[] Buffer { get { return this._buffer; } private set { } }
         public MessageType MessageType { get { return this._messageType; } private set { } }
@@ -19,14 +20,14 @@ namespace MessageSerializer
         /// </summary>
         public Deserializer()
         {
-            _strategySelector = new SerializeStrategySelector();
+            _strategySelector = new DeserializeStrategySelector<T>();
         }
 
         /// <summary>
-        /// Constructor which allows to supply a custome Strategcy Selector
+        /// Constructor which allows to supply a custom Strategy Selector
         /// </summary>
         /// <param name="strategySelector">Strategy Selector</param>
-        public Deserializer(ISerializeStrategySelector strategySelector)
+        public Deserializer(IDeserializeStrategySelector<T> strategySelector)
         {
             this._strategySelector = strategySelector;
         }
@@ -53,8 +54,8 @@ namespace MessageSerializer
         private T DeserializeObject(byte[] buffer, MessageType messageType)
         {
             ValidateBufferIsNotNull();
-            ISerializerStrategy serializer = _strategySelector.UseStrategy(messageType);
-            //this._deserializedMessage = (T)serializer.Deserialize<T>(buffer);
+            IDeserializerStrategy<T> strategy = _strategySelector.UseStrategy(messageType);
+            this._deserializedMessage = strategy.Deserialize(buffer);
             return this._deserializedMessage;
         }
 

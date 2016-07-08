@@ -5,6 +5,12 @@ namespace MessageSerializer.Format.Strategy
 {
     public class DeserializeStrategySelector<T> : IDeserializeStrategySelector<T>
     {
+
+        /// <summary>
+        /// Determines which strategy to implement based on the MessageType provided
+        /// </summary>
+        /// <param name="format">MessageType</param>
+        /// <returns>object</returns>
         public IDeserializerStrategy<T> UseStrategy(MessageType format)
         {
             switch (format)
