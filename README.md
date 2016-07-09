@@ -3,6 +3,8 @@ This is a Message Serializer built for Serializing/Deserializing messing into by
 
 This library was inspired by the RabbitMQ tutorials [Michael Stephenson](http://app.pluralsight.com/author/michael-stephenson) created on [Pluralsight](https://app.pluralsight.com/library/courses/rabbitmq-dotnet-developers-pt2).
 
+Download from Nuget [MessageSerializer](https://www.nuget.org/packages/MessageSerializer/)
+
 ## How To Use
 You can serialize or deserialize based on provided a supplied enumerable value (MessageType) or a Content-Type string.
 
