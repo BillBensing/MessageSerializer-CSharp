@@ -3,7 +3,7 @@ using MessageSerializer.Format.Strategy.Serializer;
 
 namespace MessageSerializer.Format.Strategy
 {
-    public class SerializeStrategySelector : ISerializeStrategySelector
+    public class DeserializeStrategySelector : ISerializeStrategySelector
     {
         /// <summary>
         /// Determines which strategy to implement based on the MessageType provided

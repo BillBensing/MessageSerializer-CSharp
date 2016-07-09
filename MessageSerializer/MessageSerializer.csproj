@@ -59,7 +59,7 @@
     <Compile Include="Format\ContentType.cs" />
     <Compile Include="Format\FormatConversion.cs" />
     <Compile Include="Format\Strategy\SerializeStrategySelector.cs" />
-    <Compile Include="MessageType.cs" />
+    <Compile Include="Format\MessageType.cs" />
     <Compile Include="Format\Strategy\Serializer\Binary.cs" />
     <Compile Include="Format\Strategy\Serializer\JSON.cs" />
     <Compile Include="Format\Strategy\Serializer\XML.cs" />

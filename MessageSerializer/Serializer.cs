@@ -5,56 +5,52 @@ namespace MessageSerializer
 {
     public class Serializer : ISerializer
     {
-        private object _message;
-        private MessageType _messageType;
-        private byte[] _serializedMessage;
-        private ISerializeStrategySelector _strategySelector;
-
-        public object Message { get { return this._message; } private set { } }
-        public MessageType MessageType { get { return this._messageType; } private set { } }
-        public byte[] SerializedMessage { get { return this._serializedMessage; } private set { } }
+        public object Message { get; private set; }
+        public MessageType MessageType { get; private set; }
+        public byte[] SerializedMessage { get; private set; }
+        public ISerializeStrategySelector StrategySelector { get; private set; }
 
         public Serializer()
         {
-            this._strategySelector = new SerializeStrategySelector();
+            this.StrategySelector = new DeserializeStrategySelector();
         }
 
         public Serializer(ISerializeStrategySelector strategySelector)
         {
-            this._strategySelector = strategySelector;
+            this.StrategySelector = strategySelector;
         }
 
         public byte[] SerializeAs(string contentType)
         {
-            this._messageType = FormatConversion.ToMessageType(contentType);
-            var result = SerializeObject(this._message, this._messageType);
+            this.MessageType = FormatConversion.ToMessageType(contentType);
+            var result = SerializeObject(this.Message, this.MessageType);
             return result;
         }
 
         public byte[] SerializeAs(MessageType messageType)
         {
-            this._messageType = messageType;
-            var result = SerializeObject(this._message, this._messageType);
+            this.MessageType = messageType;
+            var result = SerializeObject(this.Message, this.MessageType);
             return result;
         }
 
         public ISerializer UseObject(object message)
         {
-            this._message = message;
+            ValidateMessageIsNotNull(message);
+            this.Message = message;
             return this;
         }
 
         private byte[] SerializeObject(object message, MessageType messageType)
         {
-            ValidateMessageIsNotNull();
-            ISerializerStrategy strategy = _strategySelector.UseStrategy(messageType);
-            this._serializedMessage = strategy.Serialize(message);
-            return this._serializedMessage;
+            ISerializerStrategy strategy = this.StrategySelector.UseStrategy(messageType);
+            this.SerializedMessage = strategy.Serialize(message);
+            return this.SerializedMessage;
         }
 
-        private void ValidateMessageIsNotNull()
+        private void ValidateMessageIsNotNull(object message)
         {
-            if (this._message == null)
+            if (message == null)
             {
                 throw new System.ArgumentNullException("You need to supply a message object before you can serialize");
             }

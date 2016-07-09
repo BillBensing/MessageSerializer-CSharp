@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Text;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MessageSerializer;
 using MessageSerializer.Format.Strategy;
 using MessageSerializer.Format.Strategy.Serializer;
@@ -28,6 +26,13 @@ namespace MessageSerializerTest
             var deserializer = new Deserializer<MyMessage>();
             deserializer.UseBuffer(jsonActualBytes);
             Assert.AreEqual(deserializer.Buffer, jsonActualBytes);        
+        }
+
+        [TestMethod]
+        public void Test_Injectable_Constructor()
+        {
+            var customDeserializer = new Deserializer<MyMessage>(new DeserializeStrategySelector<MyMessage>());
+            Assert.IsInstanceOfType(customDeserializer.StrategySelector, typeof(DeserializeStrategySelector<MyMessage>));
         }
 
         [TestMethod]

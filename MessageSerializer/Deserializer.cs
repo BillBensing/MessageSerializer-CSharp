@@ -5,22 +5,18 @@ using MessageSerializer.Format.Strategy.Deserializer;
 namespace MessageSerializer
 {
     public class Deserializer<T> : IDeserializer<T>
-    {
-        private byte[] _buffer;
-        private MessageType _messageType;
-        private T _deserializedMessage;
-        private IDeserializeStrategySelector<T> _strategySelector;
-
-        public byte[] Buffer { get { return this._buffer; } private set { } }
-        public MessageType MessageType { get { return this._messageType; } private set { } }
-        public T DeserializedMessage { get { return this._deserializedMessage; } private set { } }
+    {        
+        public byte[] Buffer { get; private set; }
+        public MessageType MessageType { get; private set; }
+        public T DeserializedMessage { get; private set; }
+        public IDeserializeStrategySelector<T> StrategySelector { get; private set; }
 
         /// <summary>
         /// Default Constructor which uses the default Strategy Selector impementation
         /// </summary>
         public Deserializer()
         {
-            _strategySelector = new DeserializeStrategySelector<T>();
+            StrategySelector = new DeserializeStrategySelector<T>();
         }
 
         /// <summary>
@@ -29,42 +25,42 @@ namespace MessageSerializer
         /// <param name="strategySelector">Strategy Selector</param>
         public Deserializer(IDeserializeStrategySelector<T> strategySelector)
         {
-            this._strategySelector = strategySelector;
+            this.StrategySelector = strategySelector;
         }
 
         public T DeserializeAs(string contentType)
         {
-            this._messageType = FormatConversion.ToMessageType(contentType);
-            var result = DeserializeObject(this._buffer, this._messageType);
+            this.MessageType = FormatConversion.ToMessageType(contentType);
+            var result = DeserializeObject(this.Buffer, this.MessageType);
             return result;
         }
 
         public T DeserializeAs(MessageType messageType)
         {
-            this._messageType = messageType;
-            var result = DeserializeObject(this._buffer, this._messageType);
+            this.MessageType = messageType;
+            var result = DeserializeObject(this.Buffer, this.MessageType);
             return result;
         }
 
         public IDeserializer<T> UseBuffer(byte[] buffer)
-        {
-            this._buffer = buffer;
+        { 
+            ValidateBufferIsNotNull(buffer);
+            this.Buffer = buffer;
             return this;
         }
 
         private T DeserializeObject(byte[] buffer, MessageType messageType)
         {
-            ValidateBufferIsNotNull();
-            IDeserializerStrategy<T> strategy = _strategySelector.UseStrategy(messageType);
-            this._deserializedMessage = strategy.Deserialize(buffer);
-            return this._deserializedMessage;
+            IDeserializerStrategy<T> strategy = StrategySelector.UseStrategy(messageType);
+            this.DeserializedMessage = strategy.Deserialize(buffer);
+            return this.DeserializedMessage;
         }
 
-        private void ValidateBufferIsNotNull()
+        private void ValidateBufferIsNotNull(byte[] buffer)
         {
-            if (this._buffer == null)
+            if (buffer == null)
             {
-                throw new System.ArgumentNullException("Cannot deserializer, the supplied buffer is null.");
+                throw new System.ArgumentNullException("Cannot deserialize, the supplied buffer is null.");
             }
         }
     }

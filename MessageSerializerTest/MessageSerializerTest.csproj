@@ -53,6 +53,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Exception\ContentTypeNotSupportedException_Test.cs" />
+    <Compile Include="Exception\StrategyNotFoundException_Test.cs" />
+    <Compile Include="Serializer_Tests.cs" />
     <Compile Include="Format\FormatConversion_Test.cs" />
     <Compile Include="Format\Strategy\Binary_Test.cs" />
     <Compile Include="Format\Strategy\XML_Test.cs" />
