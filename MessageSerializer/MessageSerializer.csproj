@@ -44,20 +44,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseMessage.cs" />
+    <Compile Include="Deserializer.cs" />
+    <Compile Include="Exception\ContentTypeNotSupportedException.cs" />
     <Compile Include="Exception\StrategyNotFoundException.cs" />
-    <Compile Include="FormatMessage.cs" />
-    <Compile Include="IFormat.cs" />
-    <Compile Include="MessageFormat.cs" />
-    <Compile Include="Format\Strategy\Binary.cs" />
-    <Compile Include="Format\Strategy\JSON.cs" />
-    <Compile Include="Format\Strategy\XML.cs" />
-    <Compile Include="IFormatMessage.cs" />
+    <Compile Include="Format\Strategy\Deserializer\Binary.cs" />
+    <Compile Include="Format\Strategy\Deserializer\IDeserializerStrategy.cs" />
+    <Compile Include="Format\Strategy\Deserializer\JSON.cs" />
+    <Compile Include="Format\Strategy\Deserializer\XML.cs" />
+    <Compile Include="Format\Strategy\DeserializeStrategySelector.cs" />
+    <Compile Include="Format\Strategy\IDeserializeStrategySelector.cs" />
+    <Compile Include="Format\Strategy\ISerializeStrategySelector.cs" />
+    <Compile Include="IDeserializer.cs" />
+    <Compile Include="ISerializer.cs" />
+    <Compile Include="Format\ContentType.cs" />
+    <Compile Include="Format\FormatConversion.cs" />
+    <Compile Include="Format\Strategy\SerializeStrategySelector.cs" />
+    <Compile Include="Format\MessageType.cs" />
+    <Compile Include="Format\Strategy\Serializer\Binary.cs" />
+    <Compile Include="Format\Strategy\Serializer\JSON.cs" />
+    <Compile Include="Format\Strategy\Serializer\XML.cs" />
+    <Compile Include="Format\Strategy\Serializer\ISerializerStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

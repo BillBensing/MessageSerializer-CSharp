@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -52,16 +53,27 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Binary_Strategy.cs" />
+    <Compile Include="Exception\ContentTypeNotSupportedException_Test.cs" />
+    <Compile Include="Exception\StrategyNotFoundException_Test.cs" />
+    <Compile Include="Serializer_Tests.cs" />
+    <Compile Include="Format\FormatConversion_Test.cs" />
+    <Compile Include="Format\Strategy\Binary_Test.cs" />
+    <Compile Include="Format\Strategy\XML_Test.cs" />
+    <Compile Include="Format\Strategy\JSON_Test.cs" />
+    <Compile Include="Format\Strategy\DeserializeStrategySelector_Test.cs" />
+    <Compile Include="Format\Strategy\SerializeStrategySelector_Test.cs" />
+    <Compile Include="MyMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="JSON_Strategy.cs" />
-    <Compile Include="XML_Strategy.cs" />
+    <Compile Include="Deserializer_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MessageSerializer\MessageSerializer.csproj">
       <Project>{ae76e635-d844-4d3a-9f2a-4962b13c3e8a}</Project>
       <Name>MessageSerializer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
