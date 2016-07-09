@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MessageSerializer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Message Serializer")]
+[assembly: AssemblyDescription("Serializer/Deserializer Binary, JSON and XML messages indeded to be sent over a wire.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Bill Bensing | http://www.billbensing.com")]
 [assembly: AssemblyProduct("MessageSerializer")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
