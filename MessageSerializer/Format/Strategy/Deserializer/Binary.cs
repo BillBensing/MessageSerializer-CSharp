@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MessageSerializer.Format.Strategy.Deserializer
 {
@@ -6,7 +8,9 @@ namespace MessageSerializer.Format.Strategy.Deserializer
     {
         public T Deserialize(byte[] message)
         {
-            throw new NotImplementedException();
+            var stream = new MemoryStream(message);
+            var serializer = new BinaryFormatter();
+            return (T)serializer.Deserialize(stream);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MessageSerializer.Format.Strategy.Serializer
 {
@@ -6,7 +8,12 @@ namespace MessageSerializer.Format.Strategy.Serializer
     {
         public byte[] Serialize(object message)
         {
-            throw new NotImplementedException();
+            var stream = new MemoryStream();
+            var serializer = new BinaryFormatter();
+            serializer.Serialize(stream, message);
+            stream.Flush();
+            stream.Seek(0, SeekOrigin.Begin);
+            return stream.GetBuffer();
         }
     }
 }
