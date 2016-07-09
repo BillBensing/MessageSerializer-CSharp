@@ -41,6 +41,7 @@ namespace MessageSerializer
 
         public T DeserializeAs(MessageType messageType)
         {
+            this._messageType = messageType;
             var result = DeserializeObject(this._buffer, this._messageType);
             return result;
         }
